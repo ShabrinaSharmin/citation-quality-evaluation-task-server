@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Add New Task</h2>
+        <form action="{{ url_for('task_form') }}" method="POST">
+            <input type="text" name="task_name" placeholder="Task Name" required>
+            
+            <select name="dataset" required>
+                <option value="" disabled selected>Select Dataset</option>
+                <option value="ASQA">ASQA</option>
+                <option value="ExpertQA">ExpertQA</option>
+                <option value="AutoAIS">AutoAIS</option>
+            </select>
+            
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+     <div class="footer">
+            &copy; 2025 CQETS
+    </div>
+</body>
+</html>

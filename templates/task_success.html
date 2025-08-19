@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Added</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Task Successfully Added!</h2>
+        <p><strong>Task Name:</strong> {{ task_name }}</p>
+        <p><strong>Dataset:</strong> {{ dataset }}</p>
+        <a href="{{ url_for('task_form') }}">Add Another Task</a>
+        <br>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <div class="footer">
+            &copy; 2025 CQETS
+    </div>
+</body>
+</html>
