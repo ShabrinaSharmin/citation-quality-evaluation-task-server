@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Task - CQETS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('add_task') }}">Add Task</a></li>
+                <li><a href="{{ url_for('view_tasks') }}">View Tasks</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
+            <h1>Add Task</h1>
+        </div>
+
+        <form method="POST" action="{{ url_for('add_task') }}">
+            <label for="task_name">Task Name</label>
+            <input type="text" id="task_name" name="task_name" placeholder="Enter task name" required>
+
+            <label for="dataset">Dataset</label>
+            <select id="dataset" name="dataset" required>
+                <option value="ASQA">ASQA</option>
+                <option value="ExpertQA">ExpertQA</option>
+                <option value="AutoAIS">AutoAIS</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

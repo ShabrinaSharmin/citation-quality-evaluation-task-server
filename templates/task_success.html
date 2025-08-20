@@ -2,21 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Added</title>
+    <title>Task Added - CQETS</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Task Successfully Added!</h2>
-        <p><strong>Task Name:</strong> {{ task_name }}</p>
-        <p><strong>Dataset:</strong> {{ dataset }}</p>
-        <a href="{{ url_for('task_form') }}">Add Another Task</a>
-        <br>
-        <a href="{{ url_for('logout') }}">Logout</a>
-    </div>
-    <div class="footer">
-            &copy; 2025 CQETS
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo">
+            <h1>Task Successfully Added!</h1>
+        </div>
+
+        <!-- Navbar -->
+        <div class="navbar">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('add_task') }}">Add Task</a>
+            <a href="{{ url_for('view_tasks') }}">View Tasks</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+
+        <div class="success">
+            <p><strong>Task Name:</strong> {{ task_name }}</p>
+            <p><strong>Dataset:</strong> {{ dataset }}</p>
+        </div>
     </div>
 </body>
 </html>

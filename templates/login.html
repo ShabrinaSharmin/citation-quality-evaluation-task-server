@@ -2,26 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <!-- Link to external CSS -->
+    <title>CQETS Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="login-container">
-        <h2>User Login</h2>
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-        <form action="{{ url_for('login') }}" method="POST">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
+            <h1>Citation Quality Evaluation Task Server (CQETS)</h1>
+        </div>
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            
             <button type="submit">Login</button>
         </form>
-        <div class="footer">
-            &copy; 2025 CQETS
-        </div>
     </div>
 </body>
 </html>

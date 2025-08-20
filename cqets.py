@@ -1,45 +1,68 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # Required for sessions
+app.secret_key = "supersecretkey"
 
-# Dummy credentials
-USER_DATA = {"user@cqets.com": "password123"}
+# In-memory user and task storage
+users = {
+    "user1@cqets.com": {"password": "user1pass", "first_name": "John"}
+}
 
+tasks = []
 
+# ====== LOGIN ======
 @app.route("/", methods=["GET", "POST"])
-@app.route("/login", methods=["GET", "POST"])
 def login():
-    error = None
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-        if USER_DATA.get(email) and USER_DATA[email] == password:
-            session["user"] = email  # Store logged-in user in session
-            return redirect(url_for("task_form"))
+        email = request.form["email"]
+        password = request.form["password"]
+        user = users.get(email)
+        if user and user["password"] == password:
+            session["user_email"] = email
+            session["user_first_name"] = user["first_name"]
+            return redirect(url_for("dashboard"))
         else:
-            error = "Invalid email or password."
-    return render_template("login.html", error=error)
+            return render_template("login.html", error="Invalid credentials")
+    return render_template("login.html")
 
-@app.route("/task", methods=["GET", "POST"])
-def task_form():
-    if "user" not in session:
+
+# ====== DASHBOARD ======
+@app.route("/dashboard")
+def dashboard():
+    if "user_email" not in session:
+        return redirect(url_for("login"))
+    return render_template("dashboard.html", user_first_name=session["user_first_name"])
+
+
+# ====== ADD TASK ======
+@app.route("/add_task", methods=["GET", "POST"])
+def add_task():
+    if "user_email" not in session:
         return redirect(url_for("login"))
 
     if request.method == "POST":
-        # Get form data
-        task_name = request.form.get("task_name")
-        dataset = request.form.get("dataset")
-
-        # Pass data to success page
+        task_name = request.form["task_name"]
+        dataset = request.form["dataset"]
+        tasks.append({"task_name": task_name, "dataset": dataset})
         return render_template("task_success.html", task_name=task_name, dataset=dataset)
+    
+    return render_template("add_task.html")
 
-    return render_template("task_form.html")
 
+# ====== VIEW TASKS ======
+@app.route("/view_tasks")
+def view_tasks():
+    if "user_email" not in session:
+        return redirect(url_for("login"))
+    return render_template("view_tasks.html", tasks=tasks)
+
+
+# ====== LOGOUT ======
 @app.route("/logout")
 def logout():
-    session.pop("user", None)
+    session.clear()
     return redirect(url_for("login"))
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

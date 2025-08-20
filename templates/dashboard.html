@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - CQETS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
+            <h1>Welcome, {{ user_first_name }}</h1>
+        </div>
+
+        <div class="dashboard-cards">
+            <!-- Add Task Card -->
+            <a href="{{ url_for('add_task') }}" class="card-link">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/add_task.png') }}" alt="Add Task Icon">
+                    <span>Add Task</span>
+                </div>
+            </a>
+
+            <!-- View Tasks Card -->
+            <a href="{{ url_for('view_tasks') }}" class="card-link">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/view_task.png') }}" alt="View Tasks Icon">
+                    <span>View Tasks</span>
+                </div>
+            </a>
+
+            <!-- Logout Card -->
+            <a href="{{ url_for('logout') }}" class="card-link">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/logout.png') }}" alt="Logout Icon">
+                    <span>Logout</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
