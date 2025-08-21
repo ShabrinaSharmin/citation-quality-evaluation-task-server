@@ -2,24 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CQETS Login</title>
+    <title>Login - CQETS</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
-            <h1>Citation Quality Evaluation Task Server (CQETS)</h1>
+        <div class="card" style="max-width: 400px; margin: 80px auto; text-align: center;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo" style="width: 80px; margin-bottom: 20px;">
+            <h2>Login to CQETS</h2>
+
+            <form method="POST" action="{{ url_for('login') }}">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit" class="btn">Login</button>
+            </form>
         </div>
-        <form method="POST" action="{{ url_for('login') }}">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Enter your email" required>
-            
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter your password" required>
-            
-            <button type="submit">Login</button>
-        </form>
     </div>
 </body>
 </html>

@@ -6,35 +6,32 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
-            <h1>Welcome, {{ user_first_name }}</h1>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo" class="logo">
+            <span class="project-name">CQETS</span>
         </div>
+        <div class="nav-right">
+            <a href="{{ url_for('add_task') }}">Add Task</a>
+            <a href="{{ url_for('view_tasks') }}">View Tasks</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
 
+    <div class="container">
+        <h2>Hello {{ first_name }}!</h2>
         <div class="dashboard-cards">
-            <!-- Add Task Card -->
-            <a href="{{ url_for('add_task') }}" class="card-link">
-                <div class="card">
-                    <img src="{{ url_for('static', filename='images/add_task.png') }}" alt="Add Task Icon">
-                    <span>Add Task</span>
-                </div>
+            <a href="{{ url_for('add_task') }}" class="dashboard-card card">
+                <img src="{{ url_for('static', filename='images/add_task.png') }}" alt="Add Task">
+                <h3>Add Task</h3>
             </a>
-
-            <!-- View Tasks Card -->
-            <a href="{{ url_for('view_tasks') }}" class="card-link">
-                <div class="card">
-                    <img src="{{ url_for('static', filename='images/view_task.png') }}" alt="View Tasks Icon">
-                    <span>View Tasks</span>
-                </div>
+            <a href="{{ url_for('view_tasks') }}" class="dashboard-card card">
+                <img src="{{ url_for('static', filename='images/view_task.png') }}" alt="View Task">
+                <h3>View Tasks</h3>
             </a>
-
-            <!-- Logout Card -->
-            <a href="{{ url_for('logout') }}" class="card-link">
-                <div class="card">
-                    <img src="{{ url_for('static', filename='images/logout.png') }}" alt="Logout Icon">
-                    <span>Logout</span>
-                </div>
+            <a href="{{ url_for('logout') }}" class="dashboard-card card">
+                <img src="{{ url_for('static', filename='images/logout.png') }}" alt="Logout">
+                <h3>Logout</h3>
             </a>
         </div>
     </div>

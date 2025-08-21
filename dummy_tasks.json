@@ -1,0 +1,88 @@
+{
+    "alice@cqets.com": [
+        {
+            "task_name": "Task 1",
+            "model_name": "bert-base",
+            "huggingface_key": "hf_abc",
+            "wandb_key": "wandb_123",
+            "evaluation_type": "ALCE",
+            "compute_ip": "192.168.0.1",
+            "compute_user": "alice",
+            "certificate_text": "",
+            "additional_emails": "alice.team@example.com",
+            "status": "Complete"
+        },
+        {
+            "task_name": "Task 2",
+            "model_name": "gpt2",
+            "huggingface_key": "hf_def",
+            "wandb_key": "wandb_456",
+            "evaluation_type": "ExpertQA",
+            "compute_ip": "192.168.0.2",
+            "compute_user": "alice",
+            "certificate_text": "",
+            "additional_emails": "qa@example.com",
+            "status": "Complete"
+        },
+        {
+            "task_name": "Task 3",
+            "model_name": "roberta-base",
+            "huggingface_key": "hf_ghi",
+            "wandb_key": "wandb_789",
+            "evaluation_type": "ALCE",
+            "compute_ip": "192.168.0.3",
+            "compute_user": "alice",
+            "certificate_text": "",
+            "additional_emails": "",
+            "status": "In Progress"
+        },
+        {
+            "task_name": "Task 45",
+            "model_name": "lmsys/vicuna-7b-v1.5",
+            "evaluation_type": "ALCE",
+            "compute_ip": "192.168.0.3",
+            "compute_user": "alice",
+            "certificate_text": "12",
+            "additional_emails": "",
+            "status": "Not Started"
+        }
+    ],
+    "bob@cqets.com": [
+        {
+            "task_name": "Task 1",
+            "model_name": "bert-large",
+            "huggingface_key": "hf_jkl",
+            "wandb_key": "wandb_111",
+            "evaluation_type": "ExpertQA",
+            "compute_ip": "192.168.0.4",
+            "compute_user": "bob",
+            "certificate_text": "",
+            "additional_emails": "bob.team@example.com",
+            "status": "Not Started"
+        },
+        {
+            "task_name": "Task 2",
+            "model_name": "gpt2-medium",
+            "huggingface_key": "hf_mno",
+            "wandb_key": "wandb_222",
+            "evaluation_type": "ALCE",
+            "compute_ip": "192.168.0.5",
+            "compute_user": "bob",
+            "certificate_text": "",
+            "additional_emails": "qa@example.com",
+            "status": "In Progress"
+        },
+        {
+            "task_name": "Task 3",
+            "model_name": "roberta-large",
+            "huggingface_key": "hf_pqr",
+            "wandb_key": "wandb_333",
+            "evaluation_type": "ExpertQA",
+            "compute_ip": "192.168.0.6",
+            "compute_user": "bob",
+            "certificate_text": "",
+            "additional_emails": "",
+            "status": "Complete"
+        }
+    ]
+}

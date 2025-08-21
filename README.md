@@ -15,7 +15,7 @@ cd citation-quality-evaluation-task-server
 pip install requirements.txt
 ```
 
-## Running the weserver (http mode)
+## Running the weserver without session management mainly for testing/debugging (http mode)
 ```bash
 python cqets.py
 ```
@@ -23,3 +23,4 @@ python cqets.py
 Make sure that you have the port 5000 open for HTTP traffic
 
 Note: The server is currently running HTTP which is not secure over the wire.
+

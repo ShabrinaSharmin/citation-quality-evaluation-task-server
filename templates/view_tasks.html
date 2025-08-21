@@ -6,32 +6,47 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul class="navbar">
-                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('add_task') }}">Add Task</a></li>
-                <li><a href="{{ url_for('view_tasks') }}">View Tasks</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
-            <h1>View Tasks</h1>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo" class="logo">
+            <span class="project-name">CQETS</span>
         </div>
+        <div class="nav-right">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('add_task') }}">Add Task</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
 
+    <div class="container card">
+        <h2>All Tasks</h2>
         <table>
             <tr>
                 <th>Task Name</th>
-                <th>Dataset</th>
+                <th>Model</th>
+                <th>Evaluation</th>
+                <th>Compute IP</th>
+                <th>User</th>
+                <th>Additional Emails</th>
+                <th>Status</th>
+                <th>Results</th>
             </tr>
             {% for task in tasks %}
             <tr>
                 <td>{{ task.task_name }}</td>
-                <td>{{ task.dataset }}</td>
+                <td>{{ task.model_name }}</td>
+                <td>{{ task.evaluation_type }}</td>
+                <td>{{ task.compute_ip }}</td>
+                <td>{{ task.compute_user }}</td>
+                <td>{{ task.additional_emails }}</td>
+                <td>{{ task.status }}</td>
+                <td>
+                    {% if task.status == 'Complete' %}
+                        <a href="{{ url_for('view_results', email=user_email, task_name=task.task_name) }}" class="btn view-btn" style="width: 100%;">View Results</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </table>

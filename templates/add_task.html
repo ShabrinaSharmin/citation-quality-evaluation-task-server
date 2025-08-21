@@ -6,36 +6,88 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul class="navbar">
-                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('add_task') }}">Add Task</a></li>
-                <li><a href="{{ url_for('view_tasks') }}">View Tasks</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='images/cqets_logo.png') }}" alt="CQETS Logo">
-            <h1>Add Task</h1>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo" class="logo">
+            <span class="project-name">CQETS</span>
         </div>
+        <div class="nav-right">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('view_tasks') }}">View Tasks</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+    <div class="container card" style="max-width: 700px; margin-top: 40px;">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo" style="width: 60px; display: block; margin: 0 auto 20px auto;">
+        <h2>Add New Task</h2>
 
         <form method="POST" action="{{ url_for('add_task') }}">
-            <label for="task_name">Task Name</label>
-            <input type="text" id="task_name" name="task_name" placeholder="Enter task name" required>
 
-            <label for="dataset">Dataset</label>
-            <select id="dataset" name="dataset" required>
-                <option value="ASQA">ASQA</option>
-                <option value="ExpertQA">ExpertQA</option>
-                <option value="AutoAIS">AutoAIS</option>
-            </select>
+            <!-- Section 1: Task Details -->
+            <fieldset>
+                <legend>Task Details</legend>
 
-            <button type="submit">Submit</button>
+                <label for="task_name">Task Name:</label>
+                <input type="text" id="task_name" name="task_name" placeholder="Enter task name" required>
+
+                <label for="model_name">Model Name on Hugging Face:</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="model_name" name="model_name" placeholder="Enter model name" required>
+                    <button type="button" onclick="openHF()">Open HF</button>
+                </div>
+
+                <label for="huggingface_key">Hugging Face Key:</label>
+                <input type="password" id="huggingface_key" name="huggingface_key" placeholder="Enter HF key" required>
+
+                <label for="wandb_key">Wandb.ai Key:</label>
+                <input type="password" id="wandb_key" name="wandb_key" placeholder="Enter Wandb.ai key" required>
+
+                <label for="eval_type">Evaluation Type:</label>
+                <select id="eval_type" name="eval_type" required>
+                    <option value="ALCE" selected>ALCE</option>
+                    <option value="ExpertQA">ExpertQA</option>
+                </select>
+            </fieldset>
+
+            <!-- Section 2: Compute Resource -->
+            <fieldset>
+                <legend>Specify Compute Resource</legend>
+
+                <label for="compute_ip">Compute Resource IP Address:</label>
+                <input type="text" id="compute_ip" name="compute_ip" placeholder="Enter IP address" required>
+
+                <label for="user_login">User Login Name:</label>
+                <input type="text" id="user_login" name="user_login" placeholder="Enter login name" required>
+
+                <label for="certificate_text">Compute Resource Certificate:</label>
+                <textarea id="certificate_text" name="certificate_text" rows="6" placeholder="Paste certificate text here" required></textarea>
+            </fieldset>
+
+            <!-- Section 3: Task Notification Results -->
+            <fieldset>
+                <legend>Task Notification Results</legend>
+
+                <label for="emails">Additional Email Addresses (separate with ";" ):</label>
+                <input type="text" id="emails" name="emails" placeholder="email1@example.com;email2@example.com">
+            </fieldset>
+
+            <!-- Section 4: Submit Button -->
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Submit Task</button>
+            </div>
         </form>
     </div>
+
+    <script>
+        function openHF() {
+            const modelName = document.getElementById('model_name').value;
+            if(modelName) {
+                window.open('https://huggingface.co/' + modelName, '_blank');
+            } else {
+                alert('Please enter a model name first.');
+            }
+        }
+    </script>
 </body>
 </html>

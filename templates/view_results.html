@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Task Added - CQETS</title>
+    <title>View Tasks - CQETS</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -13,20 +13,15 @@
         </div>
         <div class="nav-right">
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
-            <a href="{{ url_for('add_task') }}">Add Task</a>
             <a href="{{ url_for('view_tasks') }}">View Tasks</a>
+            <a href="{{ url_for('add_task') }}">Add Task</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
     </nav>
 
     <div class="container card">
-        <h2>Task "{{ task.task_name }}" Added Successfully!</h2>
-        <p>Model: {{ task.model_name }}</p>
-        <p>Evaluation: {{ task.evaluation_type }}</p>
-        <p>Compute IP: {{ task.compute_ip }}</p>
-        <p>User: {{ task.compute_user }}</p>
-        <p>Notification Emails: {{ task.additional_emails }}</p>
-        <a href="{{ url_for('dashboard') }}" class="btn">Back to Dashboard</a>
+        <h2>Results</h2>
+        
     </div>
 </body>
 </html>
