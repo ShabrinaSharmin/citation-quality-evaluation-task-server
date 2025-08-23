@@ -14,6 +14,7 @@
         <div class="nav-right">
             <a href="{{ url_for('add_task') }}">Add Task</a>
             <a href="{{ url_for('view_tasks') }}">View Tasks</a>
+            <a href="{{ url_for('compare_results') }}">Compare Results</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
     </nav>
@@ -28,6 +29,10 @@
             <a href="{{ url_for('view_tasks') }}" class="dashboard-card card">
                 <img src="{{ url_for('static', filename='images/view_task.png') }}" alt="View Task">
                 <h3>View Tasks</h3>
+            </a>
+            <a href="{{ url_for('compare_results') }}" class="dashboard-card card">
+                <img src="{{ url_for('static', filename='images/compare_results.png') }}" alt="Compare Results">
+                <h3>Compare Results</h3>
             </a>
             <a href="{{ url_for('logout') }}" class="dashboard-card card">
                 <img src="{{ url_for('static', filename='images/logout.png') }}" alt="Logout">

@@ -1,0 +1,61 @@
+{
+    "model_name": "mistralai/Mistral-7B-v0.3",
+    "ASQA":
+        {
+            "length": 23.61181434599156,
+            "str_em": 32.90436005625879,
+            "str_hit": 9.81012658227848,
+            "str_em_eq_w": 30.998743718592962,
+            "doc_adj_str_em": 0,
+            "mauve": 47.87956803597464,
+            "citation_rec": 73.89767932489451,
+            "citation_prec": 68.60659031545107,
+            "citation_rec_eq_w": 75.6420233463035,
+            "citation_prec_eq_w": 72.23926380368098
+        },
+    "ELI5":
+    {
+        "length": 73.933,
+        "str_em": 0,
+        "str_hit": 0,
+        "str_em_eq_w": 0,
+        "doc_adj_str_em": 0,
+        "rougeLsum": 20.714982363276448,
+        "mauve": 43.158971578890814,
+        "citation_rec": 51.086137566137566,
+        "citation_prec": 49.911278998779004,
+        "citation_rec_eq_w": 53.650157457772686,
+        "citation_prec_eq_w": 51.69391139540393,
+        "claims_nli": 12.6,
+        "doc_adj_claims_nli": 0
+    },
+    "QAMPARI":
+    {
+        "length": 14.572,
+        "str_em": 0,
+        "str_hit": 0,
+        "str_em_eq_w": 0,
+        "doc_adj_str_em": 0,
+        "num_preds": 4.124,
+        "qampari_prec": 13.966975024508042,
+        "qampari_rec": 9.708037199129032,
+        "qampari_rec_top5": 15.979999999999997,
+        "qampari_f1": 10.196009728943336,
+        "qampari_f1_top5": 14.241933386296132,
+        "qampari_prec_eq_w": 0.20635305528612996,
+        "qampari_rec_eq_w": 0.05872346216657594,
+        "qampari_rec_top5_eq_w": 0.1598,
+        "qampari_f1_eq_w": 0.09142843697736762,
+        "qampari_f1_top_5_eq_w": 0.18011712729779145,
+        "qampari_doc_adj_prec": 0,
+        "qampari_doc_adj_rec": 0,
+        "qampari_doc_adj_rec_top5": 0,
+        "qampari_doc_adj_f1": 0,
+        "qampari_doc_adj_f1_top5": 0,
+        "citation_rec": 13.68258975286839,
+        "citation_prec": 15.340996679275317,
+        "citation_rec_eq_w": 20.140571982549684,
+        "citation_prec_eq_w": 25.81547064305685
+    }
+
+}

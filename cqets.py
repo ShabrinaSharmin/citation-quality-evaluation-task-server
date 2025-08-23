@@ -8,10 +8,10 @@ app.secret_key = "supersecretkey"
 
 # In-memory storage for users and tasks
 users = {
-    "alice@cqets.com": {"password": generate_password_hash("password123"), "first_name": "Alice", "user_id" : "1"},
-    "bob@cqets.com": {"password": generate_password_hash("secret456"), "first_name": "Bob", "user_id" : "2"},
+    "alice@cqets.com": {"password": generate_password_hash("alice123"), "first_name": "Alice", "user_id" : "1"},
+    "bob@cqets.com": {"password": generate_password_hash("bob123"), "first_name": "Bob", "user_id" : "2"},
 }
-
+RESULTS_FOLDER = "./results/"
 TASKS_FILE = 'dummy_tasks.json'
 
 # Load tasks from JSON
@@ -25,6 +25,16 @@ def load_tasks():
 def save_tasks(tasks):
     with open(TASKS_FILE, "w") as f:
         json.dump(tasks, f, indent=4)
+
+#loads the json results file
+def load_result_file(email, task_id):
+    """Load the JSON file for a specific task."""
+    filename = f"{email}_task_{task_id}.json"
+    filepath = os.path.join(RESULTS_FOLDER, filename)
+    if os.path.exists(filepath):
+        with open(filepath, "r") as f:
+            return json.load(f)
+    return {}
 
 # -------------------- Login --------------------
 @app.route("/", methods=["GET", "POST"])
@@ -84,11 +94,15 @@ def add_task():
         }
 
         all_tasks= load_tasks()
-
+        task_id = ""
         # Add to user's task list
         user_email = session["user"]
-        if user_email not in all_tasks:
+        if user_email in all_tasks:
+            task_id = str(len(all_tasks[user_email])+1)
+        else:
             all_tasks[user_email] = []
+            task_id = str(1)
+        task["task_id"] = task_id
         all_tasks[user_email].append(task)
 
         #save the file
@@ -110,28 +124,74 @@ def view_tasks():
     return render_template("view_tasks.html", tasks=user_tasks, user_email=user_email)
 
 # -------------------- View Results --------------------
-@app.route("/view_results/<email>/<task_name>")
-def view_results(email, task_name):
-#     # Check if email exists in tasks
+@app.route("/view_results/<email>/<task_id>")
+def view_results(email, task_id):
+    results_path = os.path.join(RESULTS_FOLDER, f"{email}_task_{task_id}.json")
+    if not os.path.exists(results_path):
+        return f"No results found for task {task_id} and user {email}", 404
 
-#     tasks = load_tasks()
-#     email = email
-#     user_tasks = tasks.get(user_email, [])
-#     if not user_tasks:
-#         return "User or tasks not found", 404
+    with open(results_path) as f:
+        results = json.load(f)
 
-#     # Find the task with the given ID
-#     task = next((t for t in tasks if t['id'] == task_id), None)
-#     if not task:
-#         return "Task not found", 404
+    return render_template(
+        "view_results.html",
+        email=email,
+        taskid=task_id,
+        result=results
+        )
 
-#     # Get the task results
-#     results = results_data.get(email, {}).get(task_id, {})
-#     if not results:
-#         return "Results not available yet", 404
+# -------------------- Compare Results --------------------
+@app.route("/compare_results",  methods=["GET", "POST"])
+def compare_results():
+    if "user" not in session:
+        return redirect(url_for("login"))
 
-    return render_template('view_results.html')#, task=task, results=results, email=email)
+    user_email = session["user"]
+    # List all task files for this user
+    result_files = [f for f in os.listdir(RESULTS_FOLDER) if f.startswith(f"{user_email}_task_") and f.endswith(".json")]
+    task_options = []
+    for f in result_files:
+        task_id = f.replace(f"{user_email}_task_", "").replace(".json", "")
+        print("Kiba   ", task_id)
+        try:
+            data = load_result_file(user_email, task_id)
+            model_name = data.get("model_name", "")
+            task_options.append({"task_id": task_id, "model_name": model_name})
+        except:
+            continue
 
+    # Get selected tasks from query params
+    task1_id = request.args.get("task1")
+    task2_id = request.args.get("task2")
+    comparison = None
+
+    if task1_id and task2_id:
+        task1 = load_result_file(user_email, task1_id)
+        task2 = load_result_file(user_email, task2_id)
+        comparison = {}
+
+
+        for metric in task1:
+            if metric == "model_name":
+                continue
+            if isinstance(task1[metric], dict):
+                comparison[metric] = {}
+                for sub_metric in task1[metric]:
+                    val1 = task1[metric][sub_metric]
+                    val2 = task2.get(metric, {}).get(sub_metric, 0)
+                    delta = float(val2) - float(val1)
+                    comparison[metric][sub_metric] = {"val1": val1, "val2": val2, "delta": delta}
+            # else:
+            #     val1 = task1[metric]
+            #     val2 = task2.get(metric, 0)
+            #     delta = float(val2) - float(val1)
+            #     comparison[metric] = {"val1": val1, "val2": val2, "delta": delta}
+
+    return render_template("compare_results.html",
+                           task_options=task_options,
+                           comparison=comparison,
+                           task1_id=task1_id,
+                           task2_id=task2_id)
 
 # -------------------- Logout --------------------
 @app.route("/logout")

@@ -1,8 +1,9 @@
 {
     "alice@cqets.com": [
         {
+            "task_id": "1",
             "task_name": "Task 1",
-            "model_name": "bert-base",
+            "model_name": "mistralai/Mistral-7B-v0.3",
             "huggingface_key": "hf_abc",
             "wandb_key": "wandb_123",
             "evaluation_type": "ALCE",
@@ -13,11 +14,12 @@
             "status": "Complete"
         },
         {
+            "task_id": "2",
             "task_name": "Task 2",
-            "model_name": "gpt2",
+            "model_name": "meta-llama/Llama-2-7b-hf",
             "huggingface_key": "hf_def",
             "wandb_key": "wandb_456",
-            "evaluation_type": "ExpertQA",
+            "evaluation_type": "ALCE",
             "compute_ip": "192.168.0.2",
             "compute_user": "alice",
             "certificate_text": "",
@@ -25,8 +27,9 @@
             "status": "Complete"
         },
         {
+            "task_id": "3",
             "task_name": "Task 3",
-            "model_name": "roberta-base",
+            "model_name": "mistralai/Mistral-7B-v0.3 (Finetuned)",
             "huggingface_key": "hf_ghi",
             "wandb_key": "wandb_789",
             "evaluation_type": "ALCE",
@@ -34,9 +37,10 @@
             "compute_user": "alice",
             "certificate_text": "",
             "additional_emails": "",
-            "status": "In Progress"
+            "status": "Complete"
         },
         {
+            "task_id": "4",
             "task_name": "Task 45",
             "model_name": "lmsys/vicuna-7b-v1.5",
             "evaluation_type": "ALCE",
@@ -45,12 +49,24 @@
             "certificate_text": "12",
             "additional_emails": "",
             "status": "Not Started"
+        },
+        {
+            "task_name": "Task 45",
+            "model_name": "meta-llama/Llama-2-7b-hf",
+            "evaluation_type": "ALCE",
+            "compute_ip": "192.168.0.3",
+            "compute_user": "alice",
+            "certificate_text": "12",
+            "additional_emails": "",
+            "status": "Not Started",
+            "task_id": "5"
         }
     ],
     "bob@cqets.com": [
         {
+            "task_id": "1",
             "task_name": "Task 1",
-            "model_name": "bert-large",
+            "model_name": "mistralai/Mistral-7B-v0.3",
             "huggingface_key": "hf_jkl",
             "wandb_key": "wandb_111",
             "evaluation_type": "ExpertQA",
@@ -61,8 +77,9 @@
             "status": "Not Started"
         },
         {
+            "task_id": "2",
             "task_name": "Task 2",
-            "model_name": "gpt2-medium",
+            "model_name": "Qwen/Qwen2.5-7B-Instruct",
             "huggingface_key": "hf_mno",
             "wandb_key": "wandb_222",
             "evaluation_type": "ALCE",
@@ -73,8 +90,9 @@
             "status": "In Progress"
         },
         {
+            "task_id": "3",
             "task_name": "Task 3",
-            "model_name": "roberta-large",
+            "model_name": "mistralai/Mistral-7B-v0.3",
             "huggingface_key": "hf_pqr",
             "wandb_key": "wandb_333",
             "evaluation_type": "ExpertQA",

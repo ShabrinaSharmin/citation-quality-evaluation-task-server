@@ -15,13 +15,39 @@
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('view_tasks') }}">View Tasks</a>
             <a href="{{ url_for('add_task') }}">Add Task</a>
+            <a href="{{ url_for('compare_results') }}">Compare Results</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
     </nav>
 
-    <div class="container card">
-        <h2>Results</h2>
-        
-    </div>
+<div class="container">
+    <div class="card">
+    <h2>View Results for Task {{ taskid }}</h2>
+    <p><strong>Model Name:</strong> {{ result.model_name }}</p>
+
+    {% for key, metrics in result.items() %}
+        {% if key != "model_name" %}
+        <div class="result-section">
+            <h3>{{ key }}</h3>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for metric, value in metrics.items() %}
+                    <tr>
+                        <td>{{ metric }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
 </body>
 </html>

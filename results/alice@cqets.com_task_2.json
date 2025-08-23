@@ -1,0 +1,60 @@
+{
+    "model_name": "meta-llama/Llama-2-7b-hf",
+    "ASQA":{
+        "length": 25.68354430379747,
+        "str_em": 32.64767932489451,
+        "str_hit": 9.071729957805907,
+        "str_em_eq_w": 30.71608040201005,
+        "doc_adj_str_em": 0,
+        "mauve": 62.27154080588322,
+        "citation_rec": 72.12653204741812,
+        "citation_prec": 69.25406871609404,
+        "citation_rec_eq_w": 72.65917602996255,
+        "citation_prec_eq_w": 75.16616314199396
+    },
+    "ELI5":
+    {
+        "length": 76.04,
+        "str_em": 0,
+        "str_hit": 0,
+        "str_em_eq_w": 0,
+        "doc_adj_str_em": 0,
+        "rougeLsum": 20.400576524767317,
+        "mauve": 44.32392956780501,
+        "citation_rec": 48.333492063492066,
+        "citation_prec": 49.7525,
+        "citation_rec_eq_w": 51.827057182705715,
+        "citation_prec_eq_w": 54.42421133624006,
+        "claims_nli": 9.833333333333332,
+        "doc_adj_claims_nli": 0
+    },
+    "QAMPARI":
+    {
+        "length": 16.779,
+        "str_em": 0,
+        "str_hit": 0,
+        "str_em_eq_w": 0,
+        "doc_adj_str_em": 0,
+        "num_preds": 3.319,
+        "qampari_prec": 13.1616113489194,
+        "qampari_rec": 7.440165150461146,
+        "qampari_rec_top5": 12.340000000000002,
+        "qampari_f1": 8.43340876503176,
+        "qampari_f1_top5": 12.045688902123672,
+        "qampari_prec_eq_w": 0.1997589635432359,
+        "qampari_rec_eq_w": 0.04606695699510071,
+        "qampari_rec_top5_eq_w": 0.1234,
+        "qampari_f1_eq_w": 0.07486832603152636,
+        "qampari_f1_top_5_eq_w": 0.152558083680927,
+        "qampari_doc_adj_prec": 0,
+        "qampari_doc_adj_rec": 0,
+        "qampari_doc_adj_rec_top5": 0,
+        "qampari_doc_adj_f1": 0,
+        "qampari_doc_adj_f1_top5": 0,
+        "citation_rec": 12.851412204179063,
+        "citation_prec": 16.763056649233118,
+        "citation_rec_eq_w": 17.87541378272645,
+        "citation_prec_eq_w": 27.24770642201835
+    }
+
+}

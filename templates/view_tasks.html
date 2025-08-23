@@ -14,6 +14,7 @@
         <div class="nav-right">
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('add_task') }}">Add Task</a>
+            <a href="{{ url_for('compare_results') }}">Compare Results</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
     </nav>
@@ -21,34 +22,38 @@
     <div class="container card">
         <h2>All Tasks</h2>
         <table>
-            <tr>
-                <th>Task Name</th>
-                <th>Model</th>
-                <th>Evaluation</th>
-                <th>Compute IP</th>
-                <th>User</th>
-                <th>Additional Emails</th>
-                <th>Status</th>
-                <th>Results</th>
-            </tr>
-            {% for task in tasks %}
-            <tr>
-                <td>{{ task.task_name }}</td>
-                <td>{{ task.model_name }}</td>
-                <td>{{ task.evaluation_type }}</td>
-                <td>{{ task.compute_ip }}</td>
-                <td>{{ task.compute_user }}</td>
-                <td>{{ task.additional_emails }}</td>
-                <td>{{ task.status }}</td>
-                <td>
-                    {% if task.status == 'Complete' %}
-                        <a href="{{ url_for('view_results', email=user_email, task_name=task.task_name) }}" class="btn view-btn" style="width: 100%;">View Results</a>
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Model</th>
+                    <th>Evaluation</th>
+                    <th>Compute IP</th>
+                    <th>User</th>
+                    <th>Additional Emails</th>
+                    <th>Status</th>
+                    <th>Results</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.task_name }}</td>
+                    <td>{{ task.model_name }}</td>
+                    <td>{{ task.evaluation_type }}</td>
+                    <td>{{ task.compute_ip }}</td>
+                    <td>{{ task.compute_user }}</td>
+                    <td>{{ task.additional_emails }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>
+                        {% if task.status == 'Complete' %}
+                            <a href="{{ url_for('view_results', email=user_email, task_id=task.task_id) }}" class="btn view-btn" style="width: 100%;">View Results</a>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </body>

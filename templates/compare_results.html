@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Added - CQETS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="CQETS Logo" class="logo">
+            <span class="project-name">CQETS</span>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('add_task') }}">Add Task</a>
+            <a href="{{ url_for('view_tasks') }}">View Tasks</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+    {% block content %}
+    <div class="container">
+        <div class="card">
+            <h3>Compare Results</h3>
+            <form method="get">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task1">Select Task 1</label>
+                        <select name="task1" id="task1" onchange="this.form.submit()">
+                            <option value="">--Select Task--</option>
+                            {% for task in task_options %}
+                                {% if task.task_id != task2_id %}
+                                    <option value="{{ task.task_id }}" {% if task1_id == task.task_id %}selected{% endif %}>
+                                        {{ task.task_id }} | {{ task.model_name }}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="task2">Select Task 2</label>
+                        <select name="task2" id="task2" onchange="this.form.submit()">
+                            <option value="">--Select Task--</option>
+                            {% for task in task_options %}
+                                {% if task.task_id != task1_id %}
+                                    <option value="{{ task.task_id }}" {% if task2_id == task.task_id %}selected{% endif %}>
+                                        {{ task.task_id }} | {{ task.model_name }}
+                                    </option>
+                                {%endif%}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        {% if comparison %}
+        <div class="card">
+            <h3>Comparison Table</h3>
+            {% for metric, values in comparison.items() %}
+                <h4>{{ metric }}</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sub-metric</th>
+                            <th>Task 1</th>
+                            <th>Task 2</th>
+                            <th>Delta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if values is mapping %}
+                        {% for sub_metric, val in values.items() %}
+                            <tr>
+                                <td>{{ sub_metric }}</td>
+                                <td>{{ val.val1 }}</td>
+                                <td>{{ val.val2 }}</td>
+                                <td style="color: {% if val.delta > 0 %}red{% elif val.delta < 0 %}green{% else %}black{% endif %};">
+                                    {{ val.delta }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>{{ metric }}</td>
+                            <td>{{ values.val1 }}</td>
+                            <td>{{ values.val2 }}</td>
+                            <td style="color: {% if values.delta > 0 %}red{% elif values.delta < 0 %}green{% else %}black{% endif %};">
+                                {{ values.delta }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endblock %}
+
+</body>
+</html>
