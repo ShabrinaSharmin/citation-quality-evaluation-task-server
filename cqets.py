@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
+from asqa import ASQA
+from qampari import QAMPARI
+from eli5 import ELI5
 import json
 import os
 
@@ -132,12 +135,22 @@ def view_results(email, task_id):
 
     with open(results_path) as f:
         results = json.load(f)
-
+        view_results ={}
+        view_results["model_name"] = results.get("model_name", "")
+        if "ASQA" in results:
+            asqa = ASQA(results["ASQA"]["str_em"], results["ASQA"]["citation_rec"], results["ASQA"]["citation_prec"])
+            view_results["ASQA"] = asqa.to_dict()
+        if "QAMPARI" in results:
+            qampari = QAMPARI(results["QAMPARI"]["qampari_rec_top5"], results["QAMPARI"]["qampari_prec"], results["QAMPARI"]["citation_rec"], results["QAMPARI"]["citation_prec"])
+            view_results["QAMPARI"] = qampari.to_dict()
+        if "ELI5" in results:
+            eli5 = ELI5(results["ELI5"]["claims_nli"], results["ELI5"]["citation_prec"], results["ELI5"]["citation_rec"])
+            view_results["ELI5"] = eli5.to_dict()
     return render_template(
         "view_results.html",
         email=email,
         taskid=task_id,
-        result=results
+        result=view_results
         )
 
 # -------------------- Compare Results --------------------
@@ -152,7 +165,6 @@ def compare_results():
     task_options = []
     for f in result_files:
         task_id = f.replace(f"{user_email}_task_", "").replace(".json", "")
-        print("Kiba   ", task_id)
         try:
             data = load_result_file(user_email, task_id)
             model_name = data.get("model_name", "")
@@ -164,23 +176,49 @@ def compare_results():
     task1_id = request.args.get("task1")
     task2_id = request.args.get("task2")
     comparison = None
+    task1_model_name = ""
+    task2_model_name = ""
 
     if task1_id and task2_id:
         task1 = load_result_file(user_email, task1_id)
         task2 = load_result_file(user_email, task2_id)
         comparison = {}
-
+        task1_model_name = task1["model_name"]
+        task2_model_name = task2["model_name"]
 
         for metric in task1:
             if metric == "model_name":
                 continue
+
             if isinstance(task1[metric], dict):
                 comparison[metric] = {}
-                for sub_metric in task1[metric]:
-                    val1 = task1[metric][sub_metric]
-                    val2 = task2.get(metric, {}).get(sub_metric, 0)
-                    delta = float(val2) - float(val1)
-                    comparison[metric][sub_metric] = {"val1": val1, "val2": val2, "delta": delta}
+                if metric == "ASQA":
+                    asqa_task1 = ASQA(task1[metric]["str_em"], task1[metric]["citation_rec"], task1[metric]["citation_prec"])
+                    asqa_task2 = ASQA(task2.get(metric, {}).get("str_em", 0), task2.get(metric, {}).get("citation_rec", 0), task2.get(metric, {}).get("citation_prec", 0) )
+                    asqa_task1_dict = asqa_task1.to_dict()
+                    asqa_task2_dict = asqa_task2.to_dict()
+                    for item in asqa_task1.to_dict():
+                        comparison["ASQA"][item] = {"val1": asqa_task1_dict[item], "val2": asqa_task2_dict[item], "delta": abs(asqa_task1_dict[item] - asqa_task2_dict[item])}
+                if metric == "QAMPARI":
+                    qampari_task1 = QAMPARI(task1[metric]["qampari_rec_top5"], task1[metric]["qampari_prec"], task1[metric]["citation_rec"], task1[metric]["citation_prec"])
+                    qampari_task2 = QAMPARI(task2.get(metric, {}).get("qampari_rec_top5", 0), task2.get(metric, {}).get("qampari_prec", 0), task2.get(metric, {}).get("citation_rec", 0), task2.get(metric, {}).get("citation_prec", 0) )
+                    qampari_task1_dict = qampari_task1.to_dict()
+                    qampari_task2_dict = qampari_task2.to_dict()
+                    for item in qampari_task1.to_dict():
+                        comparison["QAMPARI"][item] = {"val1": qampari_task1_dict[item], "val2": qampari_task2_dict[item], "delta": abs(qampari_task1_dict[item] - qampari_task2_dict[item])}
+                if metric == "ELI5":
+                    eli5_task1 = ELI5(task1[metric]["claims_nli"], task1[metric]["citation_prec"], task1[metric]["citation_rec"])
+                    eli5_task2 = ELI5(task2.get(metric, {}).get("claims_nli", 0), task2.get(metric, {}).get("citation_prec", 0), task2.get(metric, {}).get("citation_rec", 0) )
+                    eli5_task1_dict = eli5_task1.to_dict()
+                    eli5_task2_dict = eli5_task2.to_dict()
+                    for item in eli5_task1.to_dict():
+                        comparison["ELI5"][item] = {"val1": eli5_task1_dict[item], "val2": eli5_task2_dict[item], "delta": abs(eli5_task1_dict[item] - eli5_task2_dict[item])}
+
+                # for sub_metric in task1[metric]:
+                #     val1 = task1[metric][sub_metric]
+                #     val2 = task2.get(metric, {}).get(sub_metric, 0)
+                #     delta = float(val1) - float(val2)
+                #     comparison[metric][sub_metric] = {"val1": val1, "val2": val2, "delta": abs(delta)}
             # else:
             #     val1 = task1[metric]
             #     val2 = task2.get(metric, 0)
@@ -191,7 +229,9 @@ def compare_results():
                            task_options=task_options,
                            comparison=comparison,
                            task1_id=task1_id,
-                           task2_id=task2_id)
+                           task2_id=task2_id,
+                           task1_model_name = task1_model_name,
+                           task2_model_name = task2_model_name)
 
 # -------------------- Logout --------------------
 @app.route("/logout")

@@ -29,7 +29,7 @@
         {
             "task_id": "3",
             "task_name": "Task 3",
-            "model_name": "mistralai/Mistral-7B-v0.3 (Finetuned)",
+            "model_name": "mistralai/Mistral-7B-v0.3 (Finetuned_fgRS)",
             "huggingface_key": "hf_ghi",
             "wandb_key": "wandb_789",
             "evaluation_type": "ALCE",
@@ -42,13 +42,15 @@
         {
             "task_id": "4",
             "task_name": "Task 45",
-            "model_name": "lmsys/vicuna-7b-v1.5",
+            "model_name": "meta-llama/Llama-2-7b-hf (Finetuned_fgRS)",
+            "huggingface_key": "hf_ghi",
+            "wandb_key": "wandb_789",
             "evaluation_type": "ALCE",
             "compute_ip": "192.168.0.3",
             "compute_user": "alice",
             "certificate_text": "12",
             "additional_emails": "",
-            "status": "Not Started"
+            "status": "Complete"
         },
         {
             "task_name": "Task 45",

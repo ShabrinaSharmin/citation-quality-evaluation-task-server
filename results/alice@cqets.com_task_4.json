@@ -1,0 +1,44 @@
+{
+    "model_name": "meta-llama/Llama-2-7b-hf (Finetuned_fgRS)",   
+    "ASQA":{
+    "length": 26.272151898734176,
+    "str_em": 34.93319268635724,
+    "str_hit": 9.915611814345992,
+    "str_em_eq_w": 33.040201005025125,
+    "doc_adj_str_em": 0,
+    "mauve": 57.83561166589202,
+    "citation_rec": 77.06575246132208,
+    "citation_prec": 71.4921137231264,
+    "citation_rec_eq_w": 79.19799498746868,
+    "citation_prec_eq_w": 73.54997943233238
+},
+    "QAMPARI":{
+    "length": 11.941,
+    "str_em": 0,
+    "str_hit": 0,
+    "str_em_eq_w": 0,
+    "doc_adj_str_em": 0,
+    "num_preds": 3.345,
+    "qampari_prec": 18.075614373549158,
+    "qampari_rec": 10.327374190531316,
+    "qampari_rec_top5": 16.8,
+    "qampari_f1": 11.88801063588506,
+    "qampari_f1_top5": 16.637489848514733,
+    "qampari_prec_eq_w": 0.2571001494768311,
+    "qampari_rec_eq_w": 0.0623298856831791,
+    "qampari_rec_top5_eq_w": 0.168,
+    "qampari_f1_eq_w": 0.10033510416759539,
+    "qampari_f1_top_5_eq_w": 0.20321246729865822,
+    "qampari_doc_adj_prec": 0,
+    "qampari_doc_adj_rec": 0,
+    "qampari_doc_adj_rec_top5": 0,
+    "qampari_doc_adj_f1": 0,
+    "qampari_doc_adj_f1_top5": 0,
+    "citation_rec": 16.013090576090576,
+    "citation_prec": 17.446328671328672,
+    "citation_rec_eq_w": 22.4813153961136,
+    "citation_prec_eq_w": 28.019323671497585
+    }
+    
+
+}

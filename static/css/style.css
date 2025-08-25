@@ -240,11 +240,12 @@ td[style*="color:red"] {
     color: #c70000;
 }
 
-td[style*="color:green"] {
+
+td[style*="background-color:fancy_green"] {
     font-weight: bold;
-    background-color: #e6ffe6;
-    color: #006400;
+    background-color:  rgb(117, 211, 54);
 }
+
 
 tbody td:first-child {
     text-align: left;
